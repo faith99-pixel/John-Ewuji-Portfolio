@@ -1,6 +1,6 @@
 import React from 'react'
 import { Linkedin, Twitter, Instagram, Facebook } from 'lucide-react'
-import Logo from '../logo/logoimg'
+import Logo from '../logo/logoImg'
 import { sectionPadding } from '../styles/styles'
 
 const Footer = () => {
