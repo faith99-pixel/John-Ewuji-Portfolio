@@ -59,7 +59,7 @@ function AboutSection({}: Props) {
               </p>
 
               <button 
-              onClick={() => window.open('https://drive.google.com/file/d/1tDoZ2TmNOeCas9djLLsYPu5upNB0XruU/view?usp=drive_link', '_blank')}
+              onClick={() => window.open('https://drive.google.com/file/d/1wMzbPCTu2m_NbYJBYi_LOal4WOfchi-s/view?usp=sharing', '_blank')}
               className="bg-purple-600 hover:bg-purple-700 text-white py-2 px-6 rounded-md flex items-center gap-2 transition-colors">
                 <Download size={18} />
                 Download CV
