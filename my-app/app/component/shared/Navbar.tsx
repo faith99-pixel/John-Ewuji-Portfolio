@@ -28,10 +28,10 @@ const Navbar = (props: Props) => {
   // Function to handle smooth scrolling
   const scrollToSection = (sectionId: string) => {
     setIsMenuOpen(false); // Close mobile menu if open
-  
+
     const element = document.getElementById(sectionId);
     console.log("Attempting to scroll to:", sectionId, element); // Debug log
-  
+
     if (element) {
       element.scrollIntoView({
         behavior: "smooth",
@@ -41,7 +41,7 @@ const Navbar = (props: Props) => {
       console.warn(`Element with ID "${sectionId}" not found`);
     }
   };
-  
+
 
   // Track active section on scroll
   useEffect(() => {
@@ -72,6 +72,51 @@ const Navbar = (props: Props) => {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  const [theme, setTheme] = useState("dark")
+
+  // Load saved theme or system default
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme")
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
+
+    if (savedTheme === "light" || (!savedTheme && !prefersDark)) {
+      document.documentElement.classList.remove("dark")
+      setTheme("light")
+    } else {
+      document.documentElement.classList.add("dark")
+      setTheme("dark")
+    }
+  }, [])
+
+  // Toggle handler
+  const toggleTheme = () => {
+    if (theme === "dark") {
+      document.documentElement.classList.remove("dark")
+      localStorage.setItem("theme", "light")
+      setTheme("light")
+    } else {
+      document.documentElement.classList.add("dark")
+      localStorage.setItem("theme", "dark")
+      setTheme("dark")
+    }
+  }
+//   <button
+//   onClick={toggleTheme}
+//   className="text-white p-2 ml-2 rounded-lg hover:bg-white/10 transition-colors"
+//   aria-label="Toggle theme"
+// >
+//   {theme === "dark" ? (
+//     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-5 h-5">
+//       {/* Sun Icon for Light Mode */}
+//       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m8-9h1M3 12H2m15.364-6.364l.707.707M4.93 19.07l-.707-.707m0-12.728l.707.707M19.07 19.07l-.707-.707M12 5a7 7 0 100 14 7 7 0 000-14z" />
+//     </svg>
+//   ) : (
+//     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-5 h-5">
+//       {/* Moon Icon for Dark Mode */}
+//       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z" />
+//     </svg>
+//   )}
+// </button>
   return (
     <nav className={`fixed top-4 left-0 right-0 mx-auto z-50 ${sectionPadding} transition-all duration-300 ${scrolled ? 'py-3' : 'py-4'}`}>
       <div className={`max-w-7xl mx-auto flex items-center justify-between backdrop-blur-lg bg-black/70 border border-white/10 rounded-xl p-4 transition-all duration-300 ${scrolled ? 'shadow-lg shadow-purple-500/10' : ''}`}>
@@ -136,6 +181,9 @@ const Navbar = (props: Props) => {
           </button>
         </div>
 
+  
+
+
         {/* Hire Me Button */}
         <div className="hidden md:block">
           <button
@@ -185,7 +233,7 @@ const Navbar = (props: Props) => {
             >
               Hire Me
             </button>
-          </div>
+          </div>  
         )}
       </div>
     </nav>
